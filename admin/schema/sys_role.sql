@@ -1,4 +1,4 @@
--- role 角色表
+-- sys_role 角色表
 CREATE TABLE
   `sys_role` (
     `id` bigint (20) NOT NULL COMMENT '角色id',

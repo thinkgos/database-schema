@@ -1,8 +1,8 @@
 -- dict_item 字典项
 CREATE TABLE
   `dict_item` (
-    `id` bigint (20) NOT NULL AUTO_INCREMENT COMMENT '字典项ID',
-    `dict_id` bigint (20) NOT NULL COMMENT '字典ID',
+    `id` bigint (20) NOT NULL AUTO_INCREMENT COMMENT '字典项id',
+    `dict_id` bigint (20) NOT NULL COMMENT '字典id',
     `key` varchar(64) NOT NULL DEFAULT '' COMMENT '字典key',
     `name` varchar(64) NOT NULL DEFAULT '' COMMENT '字典项名称',
     `value` varchar(64) NOT NULL DEFAULT '' COMMENT '字典项值',

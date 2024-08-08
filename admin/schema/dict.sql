@@ -1,7 +1,7 @@
 -- dict 字典
 CREATE TABLE
   `dict` (
-    `id` bigint (20) NOT NULL AUTO_INCREMENT COMMENT '字典ID',
+    `id` bigint (20) NOT NULL AUTO_INCREMENT COMMENT '字典id',
     `key` varchar(64) NOT NULL DEFAULT '' COMMENT '关键字',
     `name` varchar(64) NOT NULL DEFAULT '' COMMENT '名称',
     `is_pin` char(1) NOT NULL DEFAULT '0' COMMENT '是否锁定',
