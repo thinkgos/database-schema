@@ -10,6 +10,5 @@ CREATE TABLE
         `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
         `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-        `deleted_at` bigint (20) NOT NULL DEFAULT '0',
         PRIMARY KEY (`id`) USING BTREE
     ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'api表';
