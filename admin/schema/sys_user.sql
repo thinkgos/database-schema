@@ -1,7 +1,7 @@
 -- sys_user 系统用户
 CREATE TABLE
   `sys_user` (
-    `id` bigint (20) NOT NULL COMMENT '用户id',
+    `id` bigint (20) NOT NULL AUTO_INCREMENT COMMENT '用户id',
     `name` varchar(64) NOT NULL DEFAULT '' COMMENT '登录名(不可修改)',
     `passwd` varchar(64) NOT NULL DEFAULT '' COMMENT '密码',
     `real_name` varchar(64) NOT NULL DEFAULT '' COMMENT '真实姓名',

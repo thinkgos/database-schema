@@ -107,20 +107,22 @@ CREATE TABLE `question` (
 -- Create "sys_api" table
 CREATE TABLE `sys_api` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT "id",
-  `type` varchar(64) NOT NULL DEFAULT "" COMMENT "分组类型",
+  `group_id` bigint NOT NULL DEFAULT 0 COMMENT "api组id",
+  `type` varchar(64) NOT NULL DEFAULT "" COMMENT "api组类型",
   `title` varchar(255) NOT NULL DEFAULT "" COMMENT "标题",
   `path` varchar(512) NOT NULL DEFAULT "" COMMENT "路由地址",
   `method` varchar(16) NOT NULL DEFAULT "" COMMENT "请求方法",
   `remark` varchar(255) NOT NULL DEFAULT "" COMMENT "备注",
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `deleted_at` bigint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "api表";
 -- Create "sys_api_group" table
 CREATE TABLE `sys_api_group` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT "id",
+  `type` varchar(64) NOT NULL DEFAULT "" COMMENT "组类型",
   `label` varchar(255) NOT NULL DEFAULT "" COMMENT "组标签",
+  `remark` varchar(255) NOT NULL DEFAULT "" COMMENT "备注",
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
@@ -183,7 +185,7 @@ CREATE TABLE `sys_resource_api` (
 ) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "资源api关联表";
 -- Create "sys_role" table
 CREATE TABLE `sys_role` (
-  `id` bigint NOT NULL COMMENT "角色id",
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT "角色id",
   `name` varchar(64) NOT NULL DEFAULT "" COMMENT "角色名称",
   `desc` varchar(64) NOT NULL DEFAULT "" COMMENT "角色描述",
   `is_enabled` char(1) NOT NULL DEFAULT "1" COMMENT "是否启用",
@@ -203,7 +205,7 @@ CREATE TABLE `sys_role_user` (
 ) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "用户角色关联表";
 -- Create "sys_user" table
 CREATE TABLE `sys_user` (
-  `id` bigint NOT NULL COMMENT "用户id",
+  `id` bigint NOT NULL AUTO_INCREMENT COMMENT "用户id",
   `name` varchar(64) NOT NULL DEFAULT "" COMMENT "登录名(不可修改)",
   `passwd` varchar(64) NOT NULL DEFAULT "" COMMENT "密码",
   `real_name` varchar(64) NOT NULL DEFAULT "" COMMENT "真实姓名",

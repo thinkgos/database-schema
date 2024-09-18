@@ -1,7 +1,7 @@
 -- sys_role 角色表
 CREATE TABLE
   `sys_role` (
-    `id` bigint (20) NOT NULL COMMENT '角色id',
+    `id` bigint (20) NOT NULL AUTO_INCREMENT COMMENT '角色id',
     `name` varchar(64) NOT NULL DEFAULT '' COMMENT '角色名称',
     `desc` varchar(64) NOT NULL DEFAULT '' COMMENT '角色描述',
     `is_enabled` char(1) NOT NULL DEFAULT '1' COMMENT '是否启用',
