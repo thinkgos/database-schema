@@ -5,7 +5,7 @@ CREATE TABLE
     `pid` bigint (20) NOT NULL DEFAULT '0' COMMENT '父级资源id',
     `level` int (10) unsigned NOT NULL DEFAULT '0' COMMENT '层级',
     `tier` varchar(512) NOT NULL COMMENT '层级',
-    `type` varchar(8) NOT NULL DEFAULT 'dir' COMMENT '菜单类型,[menu:目录,carte:菜单,btn:按钮]',
+    `type` varchar(8) NOT NULL DEFAULT 'menu' COMMENT '菜单类型,[menu:目录,carte:菜单,btn:按钮]',
     `code` varchar(64) NOT NULL DEFAULT '' COMMENT '资源代码(路由name)',
     `permission` varchar(64) NOT NULL DEFAULT '' COMMENT '权限代码',
     `title` varchar(64) NOT NULL DEFAULT '' COMMENT '名称',
