@@ -4,7 +4,7 @@ CREATE TABLE
     `id` bigint (20) NOT NULL AUTO_INCREMENT COMMENT '系统编号',
     `sub_type` int (10) unsigned NOT NULL DEFAULT '0' COMMENT '权限主体类型,[0:用户,1:角色,2:组织]',
     `sub_id` bigint (20) NOT NULL DEFAULT '0' COMMENT '主体id[用户id,角色id,组织id]',
-    `obj_type` int (10) unsigned NOT NULL DEFAULT '0' COMMENT '资源类型,[0:未指定,1:菜单,2:按钮,3:接口]',
+    `obj_type` varchar(8) NOT NULL DEFAULT 'menu' COMMENT '资源类型,[menu:目录,carte:菜单,btn:按钮,ifc:接口]',
     `obj_id` bigint (20) NOT NULL DEFAULT '0' COMMENT '资源id',
     `eft` varchar(8) NOT NULL DEFAULT '' COMMENT '权限效果[允许:allow;拒绝:deny]',
     `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

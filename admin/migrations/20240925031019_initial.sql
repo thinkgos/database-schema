@@ -108,7 +108,6 @@ CREATE TABLE `question` (
 CREATE TABLE `sys_api` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT "id",
   `group_id` bigint NOT NULL DEFAULT 0 COMMENT "api组id",
-  `type` varchar(64) NOT NULL DEFAULT "" COMMENT "api组类型",
   `title` varchar(255) NOT NULL DEFAULT "" COMMENT "标题",
   `path` varchar(512) NOT NULL DEFAULT "" COMMENT "路由地址",
   `method` varchar(16) NOT NULL DEFAULT "" COMMENT "请求方法",
@@ -120,7 +119,6 @@ CREATE TABLE `sys_api` (
 -- Create "sys_api_group" table
 CREATE TABLE `sys_api_group` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT "id",
-  `type` varchar(64) NOT NULL DEFAULT "" COMMENT "组类型",
   `label` varchar(255) NOT NULL DEFAULT "" COMMENT "组标签",
   `remark` varchar(255) NOT NULL DEFAULT "" COMMENT "备注",
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -133,20 +131,38 @@ CREATE TABLE `sys_config` (
   `key` varchar(64) NOT NULL COMMENT "关键字",
   `name` varchar(64) NOT NULL COMMENT "名称",
   `value` varchar(255) NOT NULL COMMENT "值",
-  `is_pin` char(1) NOT NULL COMMENT "是否锁定,一旦锁定将不可删除",
-  `is_alone` char(1) NOT NULL COMMENT "是否独立,表明该条记录不可通过通用接口更新",
+  `is_pin` char(1) NOT NULL DEFAULT "0" COMMENT "是否锁定,一旦锁定将不可删除",
+  `is_alone` char(1) NOT NULL DEFAULT "0" COMMENT "是否独立,表明该条记录不可通过通用接口更新",
+  `is_front_end` char(1) NOT NULL DEFAULT "0" COMMENT "是否前端",
   `remark` varchar(255) NOT NULL COMMENT "备注",
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uk_key` (`key`)
 ) CHARSET utf8mb4 COLLATE utf8mb4_general_ci COMMENT "系统参数配置";
+-- Create "sys_org" table
+CREATE TABLE `sys_org` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `pid` bigint NOT NULL DEFAULT 0 COMMENT "父级组织id",
+  `tier` varchar(512) NOT NULL DEFAULT "" COMMENT "层级",
+  `name` varchar(64) NOT NULL DEFAULT "" COMMENT "组织名称",
+  `leader` varchar(64) NOT NULL DEFAULT "" COMMENT "负责人",
+  `phone` varchar(16) NOT NULL DEFAULT "" COMMENT "负责人手机",
+  `email` varchar(64) NOT NULL DEFAULT "" COMMENT "负责人邮箱",
+  `sort` int unsigned NOT NULL DEFAULT 0 COMMENT "排序",
+  `is_enabled` char(1) NOT NULL DEFAULT "1" COMMENT "是否使能",
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` bigint NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  INDEX `pid` (`pid`)
+) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "组织部门";
 -- Create "sys_perm" table
 CREATE TABLE `sys_perm` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT "系统编号",
   `sub_type` int unsigned NOT NULL DEFAULT 0 COMMENT "权限主体类型,[0:用户,1:角色,2:组织]",
   `sub_id` bigint NOT NULL DEFAULT 0 COMMENT "主体id[用户id,角色id,组织id]",
-  `obj_type` int unsigned NOT NULL DEFAULT 0 COMMENT "资源类型,[0:未指定,1:菜单,2:按钮,3:接口]",
+  `obj_type` varchar(8) NOT NULL DEFAULT "menu" COMMENT "资源类型,[menu:目录,carte:菜单,btn:按钮,ifc:接口]",
   `obj_id` bigint NOT NULL DEFAULT 0 COMMENT "资源id",
   `eft` varchar(8) NOT NULL DEFAULT "" COMMENT "权限效果[允许:allow;拒绝:deny]",
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -154,20 +170,32 @@ CREATE TABLE `sys_perm` (
   PRIMARY KEY (`id`),
   INDEX `idx_sub_id_obj_id` (`sub_id`, `obj_id`)
 ) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "权限表(注:用户权限与角色权限可以统一用该表保存)";
+-- Create "sys_post" table
+CREATE TABLE `sys_post` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL DEFAULT "" COMMENT "岗位名称",
+  `code` varchar(128) NOT NULL DEFAULT "" COMMENT "岗位代码",
+  `sort` int unsigned NOT NULL DEFAULT 0 COMMENT "排序",
+  `remark` varchar(255) NOT NULL DEFAULT "" COMMENT "描述",
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `deleted_at` bigint NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "岗位表";
 -- Create "sys_resource" table
 CREATE TABLE `sys_resource` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT "资源id",
   `pid` bigint NOT NULL DEFAULT 0 COMMENT "父级资源id",
   `level` int unsigned NOT NULL DEFAULT 0 COMMENT "层级",
   `tier` varchar(512) NOT NULL COMMENT "层级",
-  `type` int unsigned NOT NULL DEFAULT 0 COMMENT "菜单类型,[0:未指定,1:菜单,2:按钮,3:接口]",
+  `type` varchar(8) NOT NULL DEFAULT "menu" COMMENT "资源类型,[menu:目录,carte:菜单,btn:按钮]",
   `code` varchar(64) NOT NULL DEFAULT "" COMMENT "资源代码(路由name)",
   `permission` varchar(64) NOT NULL DEFAULT "" COMMENT "权限代码",
   `title` varchar(64) NOT NULL DEFAULT "" COMMENT "名称",
   `path` varchar(512) NOT NULL DEFAULT "" COMMENT "路由地址",
   `icon` varchar(64) NOT NULL DEFAULT "" COMMENT "图标",
-  `breadcrumb` varchar(255) NULL DEFAULT "" COMMENT "面包屑",
-  `component` varchar(255) NULL DEFAULT "" COMMENT "组件",
+  `breadcrumb` varchar(255) NOT NULL DEFAULT "" COMMENT "面包屑",
+  `component` varchar(255) NOT NULL DEFAULT "" COMMENT "组件",
   `remark` varchar(64) NOT NULL DEFAULT "" COMMENT "备注",
   `sort` int unsigned NOT NULL DEFAULT 0 COMMENT "排序",
   `visible` char(1) NOT NULL DEFAULT "1" COMMENT "是否可见",
