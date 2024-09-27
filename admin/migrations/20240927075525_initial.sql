@@ -75,22 +75,6 @@ CREATE TABLE `guide` (
   `deleted_at` bigint NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
 ) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "新手指导";
--- Create "log_login" table
-CREATE TABLE `log_login` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_id` bigint NOT NULL DEFAULT 0 COMMENT "用户id",
-  `username` varchar(255) NOT NULL DEFAULT "" COMMENT "用户名",
-  `type` bigint NOT NULL DEFAULT 1 COMMENT "登录方式,[1:web,2:ios,3:android]",
-  `os` varchar(255) NOT NULL DEFAULT "" COMMENT "操作系统",
-  `platform` varchar(255) NOT NULL DEFAULT "" COMMENT "平台",
-  `user_agent` varchar(255) NOT NULL DEFAULT "" COMMENT "user_agent",
-  `remark` varchar(255) NOT NULL DEFAULT "" COMMENT "备注",
-  `login_at` datetime NOT NULL COMMENT "登录时间",
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  INDEX `idx_user_id` (`user_id`)
-) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "登录日志";
 -- Create "question" table
 CREATE TABLE `question` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -119,11 +103,13 @@ CREATE TABLE `sys_api` (
 -- Create "sys_api_group" table
 CREATE TABLE `sys_api_group` (
   `id` bigint NOT NULL AUTO_INCREMENT COMMENT "id",
-  `label` varchar(255) NOT NULL DEFAULT "" COMMENT "组标签",
+  `tag` varchar(255) NOT NULL DEFAULT "" COMMENT "标签",
+  `label` varchar(255) NOT NULL DEFAULT "" COMMENT "组名称",
   `remark` varchar(255) NOT NULL DEFAULT "" COMMENT "备注",
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `uk_tag` (`tag`)
 ) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "api组表";
 -- Create "sys_config" table
 CREATE TABLE `sys_config` (
@@ -140,6 +126,23 @@ CREATE TABLE `sys_config` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `uk_key` (`key`)
 ) CHARSET utf8mb4 COLLATE utf8mb4_general_ci COMMENT "系统参数配置";
+-- Create "sys_log_login" table
+CREATE TABLE `sys_log_login` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL DEFAULT 0 COMMENT "用户id",
+  `username` varchar(255) NOT NULL DEFAULT "" COMMENT "用户名",
+  `type` bigint NOT NULL DEFAULT 1 COMMENT "登录方式,[1:web,2:ios,3:android]",
+  `os` varchar(255) NOT NULL DEFAULT "" COMMENT "操作系统",
+  `platform` varchar(255) NOT NULL DEFAULT "" COMMENT "平台",
+  `browser` varchar(255) NOT NULL DEFAULT "" COMMENT "浏览器",
+  `user_agent` varchar(255) NOT NULL DEFAULT "" COMMENT "user_agent",
+  `remark` varchar(255) NOT NULL DEFAULT "" COMMENT "备注",
+  `login_at` datetime NOT NULL COMMENT "登录时间",
+  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_user_id` (`user_id`)
+) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "登录日志";
 -- Create "sys_org" table
 CREATE TABLE `sys_org` (
   `id` bigint NOT NULL AUTO_INCREMENT,
@@ -258,3 +261,17 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_deleted_at` (`name`, `deleted_at`)
 ) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "系统用户";
+-- Create "sys_user_org" table
+CREATE TABLE `sys_user_org` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL COMMENT "用户id",
+  `org_id` bigint NOT NULL COMMENT "组织id",
+  PRIMARY KEY (`id`)
+) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "用户组织关联表";
+-- Create "sys_user_post" table
+CREATE TABLE `sys_user_post` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` bigint NOT NULL COMMENT "用户id",
+  `post_id` bigint NOT NULL COMMENT "岗位id",
+  PRIMARY KEY (`id`)
+) CHARSET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT "用户岗位关联表";
