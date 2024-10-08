@@ -8,6 +8,7 @@ CREATE TABLE
         `phone` varchar(16) NOT NULL DEFAULT '' COMMENT '负责人手机',
         `email` varchar(64) NOT NULL DEFAULT '' COMMENT '负责人邮箱',
         `sort` int (10) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+        `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
         `is_enabled` char(1) NOT NULL DEFAULT '1' COMMENT '是否使能',
         `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
