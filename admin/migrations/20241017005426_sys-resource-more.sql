@@ -1,0 +1,2 @@
+-- Modify "sys_resource" table
+ALTER TABLE `sys_resource` ADD COLUMN `is_affix` char(1) NOT NULL DEFAULT "0" COMMENT "是否固定在tagsView栏", ADD COLUMN `is_cached` char(1) NOT NULL DEFAULT "0" COMMENT "是否缓存组件,对外链,内存无效", ADD COLUMN `is_iframe` char(1) NOT NULL DEFAULT "0" COMMENT "是否内嵌窗口,仅对hyperlink有效,hyperlink为空,必须为false", ADD COLUMN `hyperlink` varchar(255) NOT NULL DEFAULT "" COMMENT "超链接,is_iframe决定开启新窗口还是内嵌";
