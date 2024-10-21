@@ -1,5 +1,6 @@
-h1:NWlpVQqzw1CqrdGhvGpGQ5m+BLIdOVlNt1xoJBtlRpM=
+h1:2qpvBQD9AK/VNECxNteisNNBBKLFaBkAt6ay0vGb8cA=
 20240927075525_initial.sql h1:RGxLrzJUFzSjyZZuvMjsEs31xvbiK3e/cqiRP3nPiLQ=
 20241008025820_sys-org-add-remark.sql h1:eIqv8RtyFdtVQRh/HI5M7TNoncLcNp5p6f5Gfk+I2sw=
 20241017005426_sys-resource-more.sql h1:mJi+a3T1D8Bo8QKwxlzwOQ1cg0VcmStptfhSlbtaT6A=
 20241017005552_sys-resource-code2name.sql h1:km8dQqyZl7KBapBTN+Mr3vXpJclUQFhHLpO7jEGz/4U=
+20241021005356_sys-resource-remove-level.sql h1:52qBaVc2TfAXordVcs959uHDz5RchIzgM7AO1FWXLGk=
